@@ -1,11 +1,13 @@
 import React from 'react'
 
-const InputOutput = () => {
+const InputOutput = ({options, selectedCurr, onChangeCurr, amount, onChangeAmount}) => {
     return (
         <div>
-            <input type="number" className="input"/>
-            <select name="" id="">
-                <option value=""></option>
+            <input type="number" className="input" value={amount} onChange={onChangeAmount}/>
+            <select value={selectedCurr} onChange={onChangeCurr}>
+                {options.map(val => (
+                    <option key={val} value={val}>{val}</option>
+                ))}
             </select>
         </div>
     )
