@@ -13,14 +13,7 @@ const App = () => {
     const [amount, setAmount] = useState(1)
     const [fromAmount, setFromAmount] = useState(true)
 
-    let firstAmount, secondAmount
-    if(fromAmount) {
-        firstAmount = amount
-        secondAmount = amount * exchangeRate
-    } else {
-        firstAmount = amount / exchangeRate
-        secondAmount = amount
-    }
+    const [topAmount, bottomAmount] = fromAmount ? [amount, amount * exchangeRate] : [amount / exchangeRate, amount]
 
     useEffect(() => {
         fetch(BASE_URL)
@@ -54,7 +47,7 @@ const App = () => {
                 options={options}
                 selectedCurr={fromCurr}
                 onChangeCurr={e => setFromCurr(e.target.value)}
-                amount={firstAmount}
+                amount={topAmount}
                 onChangeAmount={e => onChangeAmount(e, true)}
             />
             <div className="equals">=</div>
@@ -62,7 +55,7 @@ const App = () => {
                 options={options}
                 selectedCurr={toCurr}
                 onChangeCurr={e => setToCurr(e.target.value)}
-                amount={secondAmount}
+                amount={bottomAmount}
                 onChangeAmount={e => onChangeAmount(e, false)}
             />
         </div>
